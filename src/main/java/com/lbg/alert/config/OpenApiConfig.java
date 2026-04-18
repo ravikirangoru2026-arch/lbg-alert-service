@@ -16,8 +16,8 @@ public class OpenApiConfig {
     public OpenAPI applicationOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Employee Management API")
-                        .description("REST APIs for Employee CRUD operations")
+                        .title("Alert Management API")
+                        .description("REST APIs for Alert CRUD operations")
                         .version("v1.0.0")
                         .contact(new Contact()
                                 .name("Your Team")
