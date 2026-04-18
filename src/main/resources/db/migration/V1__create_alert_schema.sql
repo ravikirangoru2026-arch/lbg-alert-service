@@ -1,8 +1,8 @@
 -- ============================================================
--- Alert Service — H2 संस्करण
+-- Alert Service — H2 Schema (Flyway V1)
 -- ============================================================
 
--- ─── ALERT ──────────────────────────────────────────────────
+-- ─── ALERT TABLE ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS alert (
                                      id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
                                      alert_ref           VARCHAR(20)     NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS alert (
     alert_type          VARCHAR(30)     NOT NULL,
     risk_band           VARCHAR(10)     NOT NULL,
     amount              DECIMAL(19,4)   NOT NULL,
-    currency_code       CHAR(3)         DEFAULT 'GBP' NOT NULL,
+    currency_code       VARCHAR(3)         DEFAULT 'GBP' NOT NULL,
     status              VARCHAR(20)     DEFAULT 'NEW' NOT NULL,
     assigned_analyst    VARCHAR(100),
     triggered_at        TIMESTAMP       NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS alert (
     updated_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP NOT NULL
     );
 
--- Constraints
+-- Unique constraint
 ALTER TABLE alert ADD CONSTRAINT uk_alert_ref UNIQUE (alert_ref);
 
 -- Indexes
@@ -31,7 +31,7 @@ CREATE INDEX idx_alert_analyst       ON alert(assigned_analyst);
 CREATE INDEX idx_alert_status_risk   ON alert(status, risk_band, triggered_at);
 
 
--- ─── ALERT_FLAGGED_RULE ──────────────────────────────────────
+-- ─── ALERT_FLAGGED_RULE TABLE ────────────────────────────────
 CREATE TABLE IF NOT EXISTS alert_flagged_rule (
                                                   id          BIGINT AUTO_INCREMENT PRIMARY KEY,
                                                   alert_id    BIGINT          NOT NULL,
